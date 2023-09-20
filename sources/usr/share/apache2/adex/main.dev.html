@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="sk-SK">
+<head>
+
+<!-- ///////////////////////////////////////////////// -->
+<!-- //               LUnet aDex 1.0                // -->
+<!-- ///////////////////////////////////////////////// -->
+<!-- // Apache2 autoindex module extension          // -->
+<!-- // (c) 2023 LUnet Studio, http://lunet.studio  // -->
+<!-- ///////////////////////////////////////////////// -->
+
+	<meta charset="UTF-8" />
+	<meta name="description" content="<!--#echo var="aDexAPP_Name" --> - <!--#echo var="aDexAPP_Description" -->" />
+	<meta name="author" content="<!--#echo var="aDexAPP_Author" -->" />
+	<meta name="robots" content="noindex, nofollow" />
+	<title><!--#echo var="HTTP_HOST" --> - <!--#echo var="aDexAPP_ShortName" --></title>
+	<link href="/adex/favicon.ico" rel="icon" type="image/x-icon" />
+	<link href="/adex/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<link href="/adex/default.css" rel="stylesheet" type="text/css" />
+	<link href="/adex/compact.css" rel="stylesheet" type="text/css" media="screen and (max-width: 640px)" />
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="/adex/main.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="theme-color" content="#6f6e6d" />
+	<meta name="msapplication-navbutton-color" content="#6f6e6d" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="#6f6e6d" />
+</head>
+<body>
+	<header>
+		<h1></h1>
+	</header>
+	<section id="VARS">
+		<div><!--#config echomsg="" --></div>
+		<span title="HTTP_HOST"><!--#echo var="HTTP_HOST" --></span>
+		<span title="REQUEST_URI"><!--#echo var="REQUEST_URI" --></span>
+		<span title="QUERY_STRING"><!--#echo var="QUERY_STRING" --></span>
+		<span title="Name"><!--#echo var="aDexAPP_Name" --></span>
+		<span title="Version"><!--#echo var="aDexAPP_Version" --></span>
+		<span title="ShortName"><!--#echo var="aDexAPP_ShortName" --></span>
+		<span title="Description"><!--#echo var="aDexAPP_Description" --></span>
+		<span title="Website"><!--#echo var="aDexAPP_Website" --></span>
+		<span title="Author"><!--#echo var="aDexAPP_Author" --></span>
+		<span title="Contact"><!--#echo var="aDexAPP_Contact" --></span>
+	</section>
+	<main></main>
+	<aside class="fitem hidden"></aside>
+	<template class="fitem">
+		<div class="info">
+			<img src="" alt="" />
+			<h1></h1>
+			<p class="description"></p>
+			<div class="clear"></div>
+			<div class="actions"></div>
+		</div>
+		<div class="preview"></div>
+	</template>
+	<div class="clear"></div>
+	<footer>
+		<address><!--#echo var="aDexAPP_Name" --> <!--#echo var="aDexAPP_Version" --> on <!--#echo var="SERVER_SOFTWARE" --> Server at <!--#echo var="SERVER_NAME" --> Port <!--#echo var="SERVER_PORT" --></address>
+		<small><!--#echo var="aDexAPP_Description" --> <a href="<!--#echo var="aDexAPP_Website" -->" target="_blank"><strong><!--#echo var="aDexAPP_Name" --></strong></a> &copy; 2023 <a href="<!--#echo var="aDexAPP_Contact" -->" target="_blank"><!--#echo var="aDexAPP_Author" --></a>. All rights reserved!</small>
+	</footer>

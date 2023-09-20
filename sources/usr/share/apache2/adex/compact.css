@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+table.side {width: 98%;}
+
+table .modtime {display: none;}
+
+table td:nth-child(1) {padding: 2px 2px;}
+table th:nth-child(1), table td:nth-child(1), table .icon img {width: 24px; height: 24px;}
+
+aside.fitem {width: 100%; float: left;}
