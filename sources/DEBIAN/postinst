@@ -6,7 +6,7 @@
 ##
 
 pAPP="libapache2-mod-adex"
-vAPP="1.1.2405"
+vAPP="0.9.2309"
 dAPP="/usr/share/apache2/adex"
 
 dMA="/etc/apache2/mods-available"

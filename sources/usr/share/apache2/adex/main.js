@@ -1,5 +1,4 @@
 var APP={};
-var CFG={};
 var fType={};
 
 var thisdir=window.location.origin+window.location.pathname;
@@ -30,11 +29,7 @@ $(document).ready(function()
 // from apache2 EnvVars
 function getEnvVars()
 {
-	$('#VARS span').each(function()
-	{
-		if ($(this).attr('class')=='APP') APP[$(this).attr('title')]=$(this).html();
-		if ($(this).attr('class')=='CFG') CFG[$(this).attr('title')]=$(this).html();
-	});
+	$('#VARS span').each(function(){ APP[$(this).attr('title')]=$(this).html(); });
 	$('#VARS').remove();
 }
 
@@ -45,10 +40,8 @@ function setFileTypes()
 	fType['image']=['ico','gif','jpg','jpeg','jpc','jp2','jpx','xbm','wbmp','png','bmp','tif','tiff','psd','svg','webp','avif'];
 	fType['video']=['avi','webm','wmv','mp4','m4v','ogm','ogv','mov','mkv','mpg','mpeg','flv','3gp','asf'];
 	fType['audio']=['wav','mp3','mp2','ogg','oga','m4a','flac','aac','wma','mka','ac3'];
-	fType['text']=['htaccess','passwd','ftpquota','sh','config','php','php4','php5','phps','phtml','m3u','m3u8','pls','cue','bash','vue','eml','msg','csv','bat','cmd','twig','tpl','md','gitignore','less','sass','scss','c','cpp','cs','py','go','zsh','swift','map','lock','dtd','asp','aspx','asx','asmx','ashx','jsp','jspx','cgi','dockerfile','ruby','toml','vhost','scpt','applescript','csx','cshtml','coffee','cfm','rb','graphql','mustache','jinja','http','handlebars','java','es','es6','markdown','wiki','tmp','top','bot','dat','bak','htpasswd','pl'];
-	fType['document']=['doc','docx','xls','xlsx','ppt','pptx','ai','psd','dxf','xps','odt','ods'];
-	
-	fType['plain']=['txt','pdf','css','ini','inf','conf','log','sql','js','ts','jsx','tsx','mjs','json','htm','html','shtml','xhtml','xml','xsl','svg','yml','yaml'];
+	fType['text']=['txt','css','ini','conf','log','htaccess','passwd','ftpquota','sql','js','ts','jsx','tsx','mjs','json','sh','config','php','php4','php5','phps','phtml','htm','html','shtml','xhtml','xml','xsl','m3u','m3u8','pls','cue','bash','vue','eml','msg','csv','bat','twig','tpl','md','gitignore','less','sass','scss','c','cpp','cs','py','go','zsh','swift','map','lock','dtd','svg','asp','aspx','asx','asmx','ashx','jsp','jspx','cgi','dockerfile','ruby','yml','yaml','toml','vhost','scpt','applescript','csx','cshtml','coffee','cfm','rb','graphql','mustache','jinja','http','handlebars','java','es','es6','markdown','wiki','tmp','top','bot','dat','bak','htpasswd','pl'];
+	fType['document']=['doc','docx','xls','xlsx','pdf','ppt','pptx','ai','psd','dxf','xps','rar','odt','ods'];
 }
 
 
@@ -64,13 +57,10 @@ function makeTitle()
 	var pName=decodeURIComponent(APP['REQUEST_URI']);
 	pName=pName.replace('?'+APP['QUERY_STRING'], '');
 	
-	var hName=APP['HTTP_HOST'];
-	if (CFG['CustomTitle']!='' && CFG['CustomTitle']!=undefined) hName=CFG['CustomTitle'];
+	if (pName=='' || pName=='/') $('title').html(APP['HTTP_HOST']+' - '+APP['ShortName']);
+	else $('title').html(APP['HTTP_HOST']+' ['+pName+'] - '+APP['ShortName']);
 	
-	if (pName=='' || pName=='/') $('title').html(hName+' - '+APP['ShortName']);
-	else $('title').html(hName+' ['+pName+'] - '+APP['ShortName']);
-	
-	var title='<a href="/" class="host">'+hName+'</a>';
+	var title='<a href="/" class="host">'+APP['HTTP_HOST']+'</a>';
 	if (pName!='' && pName!='/')
 	{
 		var i=1;
@@ -452,29 +442,15 @@ function openFileBox(item)
 	if (item['type']=='video') $('aside.fitem .preview').html('<video controls src="'+item['path']+'"></video>');
 	if (item['type']=='text')
 	{
-		$.ajax({ type: 'GET', url: item['path'], success: function(result){
-			$('aside.fitem .preview').html('<pre>'+result+'</pre>');
-		}});
+		$('aside.fitem .preview').remove();
+		$('aside.fitem').append('<iframe class="preview" src="'+item['path']+'"></iframe>');
 	}
 	if (item['type']=='document')
 	{
-		var deUrl='about:blank';
-		if (CFG['DocEngine']=='gdocs') deUrl='https://docs.google.com/viewer?embedded=true&amp;hl=en&amp;url='+item['path'];
-		if (CFG['DocEngine']=='msoffice') deUrl='https://view.officeapps.live.com/op/embed.aspx?src='+item['path'];
-		$('aside.fitem .preview').remove(); $('aside.fitem').append('<iframe class="preview" src="'+deUrl+'"></iframe>');
+		$('aside.fitem .preview').remove();
+		$('aside.fitem').append('<iframe class="preview" src="https://docs.google.com/viewer?embedded=true&amp;hl=en&amp;url='+item['path']+'"></iframe>');
 	}
-	if (item['type']=='plain'){ $('aside.fitem .preview').remove(); $('aside.fitem').append('<iframe class="preview" src="'+item['path']+'"></iframe>'); }
-	if (item['type']=='unknown')
-	{
-		var i=0;
-		var prevhtml='&nbsp;<br />';
-		for (i=0;i<6;i++)
-		{
-			if (i==3) prevhtml+='<br /><br />';
-			prevhtml+='&nbsp; <img src="http://sys.lunet.studio/exc.html/tools/tool=findimg/no='+i+'/return=image/q='+item['name']+'" alt="" class="findimg" /> &nbsp;';
-		}
-		$('aside.fitem .preview').html(prevhtml);
-	}
+	if (item['type']=='unknown') $('aside.fitem .preview').html('(no preview available)');
 	
 	$(window).resize();
 }

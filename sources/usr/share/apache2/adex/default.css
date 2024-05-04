@@ -81,5 +81,3 @@ aside.fitem {display: block; width: 59%; float: right; border: 2px solid #c0c0c0
 .fitem div.preview {text-align: center;}
 .fitem .preview img, .fitem .preview video {max-width: 100%; height: auto;}
 .fitem .preview audio {width: 95%; height: 100px;}
-.fitem .preview pre {text-align: left; padding: 0 1%; cursor: text;}
-.fitem .preview img.findimg {border: 1px solid #c0c0c0; box-shadow: 0px 0px 10px 5px #c0c0c0;}
